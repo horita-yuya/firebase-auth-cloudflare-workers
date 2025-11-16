@@ -95,6 +95,7 @@ export class BaseClient {
     try {
       const res = await fetch(url, init);
       const text = await res.text();
+      console.error(res, text);
       if (!res.ok) {
         throw new HttpError(res.status, text);
       }
