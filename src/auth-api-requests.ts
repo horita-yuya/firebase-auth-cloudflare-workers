@@ -257,6 +257,15 @@ export class AuthApiClient extends BaseClient {
     return new UserRecord((res as any).users[0]);
   }
 
+  public async getAccountInfoByEmail(email: string, env?: EmulatorEnv): Promise<UserRecord> {
+    const request = {
+      email,
+    };
+    const res = await this.fetch<object>(FIREBASE_AUTH_GET_ACCOUNT_INFO, request, env);
+    // Returns the user record populated with server response.
+    return new UserRecord((res as any).users[0]);
+  }
+
   /**
    * Revokes all refresh tokens for the specified user identified by the uid provided.
    * In addition to revoking all refresh tokens for a user, all ID tokens issued
