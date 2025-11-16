@@ -231,8 +231,8 @@ export class AuthApiClient extends BaseClient {
       emailVerified: params.emailVerified,
       password: params.password,
     };
-    const res = await this.fetch<{ uid: string }>(FIREBASE_AUTH_SIGNUP, request, env);
-    return res.uid;
+    const res = await this.fetch<{ localId: string }>(FIREBASE_AUTH_SIGNUP, request, env);
+    return res.localId;
   }
 
   /**
