@@ -70,9 +70,10 @@ export class ServiceAccountCredential implements Credential {
       this.privateKey = serviceAccount.privateKey;
       this.clientEmail = serviceAccount.clientEmail;
     } else {
-      this.projectId = params.projectId;
-      this.privateKey = params.privateKey;
-      this.clientEmail = params.clientEmail;
+      const serviceAccount = ServiceAccount.fromObject(params);
+      this.projectId = serviceAccount.projectId;
+      this.privateKey = serviceAccount.privateKey;
+      this.clientEmail = serviceAccount.clientEmail;
     }
   }
 
@@ -165,6 +166,10 @@ class ServiceAccount {
         'Failed to parse service account json file: ' + error
       );
     }
+  }
+
+  public static fromObject(config: { projectId: string; privateKey: string; clientEmail: string }): ServiceAccount {
+    return new ServiceAccount(config);
   }
 
   constructor(json: object) {
