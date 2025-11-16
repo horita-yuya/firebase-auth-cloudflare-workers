@@ -190,8 +190,11 @@ export const FIREBASE_AUTH_SET_CUSTOM_USER_CLAIMS = new ApiSettings('v1', '/acco
 
 export const FIREBASE_AUTH_SIGNUP = new ApiSettings('v1', '/accounts', 'POST').setResponseValidator((response: any) => {
   if (!response.localId) {
-    console.log(response);
-    throw new FirebaseAuthError(AuthClientErrorCode.INTERNAL_ERROR);
+    if (response.error.message) {
+      throw FirebaseAuthError.fromServerError(response.error.message, response);
+    } else {
+      throw new FirebaseAuthError(AuthClientErrorCode.INTERNAL_ERROR);
+    }
   }
 });
 
