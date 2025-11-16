@@ -17,7 +17,8 @@ export class ApiSettings {
   constructor(
     private version: 'v1' | 'v2',
     private endpoint: string,
-    private httpMethod: HttpMethod = 'POST'
+    private httpMethod: HttpMethod = 'POST',
+    private resources?: 'projects.accounts' | 'accounts'
   ) {
     this.setRequestValidator(null).setResponseValidator(null);
   }
@@ -35,6 +36,10 @@ export class ApiSettings {
   /** @returns The request HTTP method. */
   public getHttpMethod(): HttpMethod {
     return this.httpMethod;
+  }
+
+  public getResources(): 'projects.accounts' | 'accounts' {
+    return this.resources ?? 'projects.accounts';
   }
 
   /**

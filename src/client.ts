@@ -51,7 +51,8 @@ export function buildApiUrl(projectId: string, apiSettings: ApiSettings, env?: E
     ? `http://${env.FIREBASE_AUTH_EMULATOR_HOST}/identitytoolkit.googleapis.com`
     : defaultAuthURL;
   const endpoint = apiSettings.getEndpoint();
-  return `${baseUrl}/${apiSettings.getVersion()}/projects/${projectId}${endpoint}`;
+  const path = apiSettings.getResources() === 'projects.accounts' ? `/projects/${projectId}` : '';
+  return `${baseUrl}/${apiSettings.getVersion()}${path}${endpoint}`;
 }
 
 export class BaseClient {
