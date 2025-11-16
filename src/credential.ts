@@ -51,15 +51,29 @@ export class ServiceAccountCredential implements Credential {
   /**
    * Creates a new ServiceAccountCredential from the given parameters.
    *
-   * @param serviceAccountJson - Service account json content.
+   * @param params - Service account json content.
    *
    * @constructor
    */
-  constructor(serviceAccountJson: string) {
-    const serviceAccount = ServiceAccount.fromJSON(serviceAccountJson);
-    this.projectId = serviceAccount.projectId;
-    this.privateKey = serviceAccount.privateKey;
-    this.clientEmail = serviceAccount.clientEmail;
+  constructor(
+    params:
+      | { serviceAccountJson: string }
+      | {
+          projectId: string;
+          privateKey: string;
+          clientEmail: string;
+        }
+  ) {
+    if ('serviceAccountJson' in params) {
+      const serviceAccount = ServiceAccount.fromJSON(params.serviceAccountJson);
+      this.projectId = serviceAccount.projectId;
+      this.privateKey = serviceAccount.privateKey;
+      this.clientEmail = serviceAccount.clientEmail;
+    } else {
+      this.projectId = params.projectId;
+      this.privateKey = params.privateKey;
+      this.clientEmail = params.clientEmail;
+    }
   }
 
   public async getAccessToken(): Promise<GoogleOAuthAccessToken> {

@@ -158,7 +158,7 @@ app.post('/admin/login_session', async c => {
   // can be checked to ensure user was recently signed in before creating a session cookie.
   const auth = AdminAuthApiClient.getOrInitialize(
     c.env.PROJECT_ID,
-    new ServiceAccountCredential(c.env.SERVICE_ACCOUNT_JSON)
+    new ServiceAccountCredential({ serviceAccountJson: c.env.SERVICE_ACCOUNT_JSON })
   );
   const sessionCookie = await auth.createSessionCookie(
     idToken,

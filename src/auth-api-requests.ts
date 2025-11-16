@@ -188,6 +188,8 @@ export const FIREBASE_AUTH_SET_CUSTOM_USER_CLAIMS = new ApiSettings('v1', '/acco
     }
   });
 
+export const FIREBASE_AUTH_SIGNUP = new ApiSettings('v1', '/accounts:signUp', 'POST');
+
 export class AuthApiClient extends BaseClient {
   /**
    * Creates a new Firebase session cookie with the specified duration that can be used for
@@ -210,6 +212,19 @@ export class AuthApiClient extends BaseClient {
     };
     const res = await this.fetch<{ sessionCookie: string }>(FIREBASE_AUTH_CREATE_SESSION_COOKIE, request, env);
     return res.sessionCookie;
+  }
+
+  public async createUser(
+    params: { type: 'email-password'; email: string; emailVerified: boolean; password: string },
+    env?: EmulatorEnv
+  ) {
+    const request = {
+      email: params.email,
+      emailVerified: params.emailVerified,
+      password: params.password,
+    };
+    const res = await this.fetch<{ uid: string }>(FIREBASE_AUTH_SIGNUP, request, env);
+    return res.uid;
   }
 
   /**
