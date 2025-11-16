@@ -95,13 +95,14 @@ export class BaseClient {
     try {
       const res = await fetch(url, init);
       const text = await res.text();
-      console.error(res, text);
       if (!res.ok) {
         throw new HttpError(res.status, text);
       }
       try {
+        console.error('Hello');
         return JSON.parse(text) as T;
       } catch (err) {
+        console.error('Hello2', text);
         throw new HttpError(res.status, text, {
           cause: new FirebaseAppError(
             AppErrorCodes.UNABLE_TO_PARSE_RESPONSE,
