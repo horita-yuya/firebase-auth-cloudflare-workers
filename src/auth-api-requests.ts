@@ -188,7 +188,7 @@ export const FIREBASE_AUTH_SET_CUSTOM_USER_CLAIMS = new ApiSettings('v1', '/acco
     }
   });
 
-export const FIREBASE_AUTH_SIGNUP = new ApiSettings('v1', '/accounts:signUp', 'POST', 'accounts');
+export const FIREBASE_AUTH_SIGNUP = new ApiSettings('v1', '/accounts', 'POST');
 
 export class AuthApiClient extends BaseClient {
   /**
