@@ -123,10 +123,8 @@ export class BaseClient {
         }
 
         try {
-          console.error('FUGA', err.message);
           const json = JSON.parse(err.message);
           const errorCode = this.getErrorCode(json);
-          console.error('FUGA1', json);
           if (errorCode) {
             throw FirebaseAuthError.fromServerError(errorCode, json);
           }

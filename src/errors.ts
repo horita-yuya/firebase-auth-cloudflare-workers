@@ -107,6 +107,10 @@ export class AuthClientErrorCode {
     code: 'claims-too-large',
     message: 'Developer claims maximum payload size exceeded.',
   };
+  public static EMAIL_EXISTS = {
+    code: 'email-exists',
+    message: 'The email address is already in use by another account.',
+  };
 }
 
 /**
